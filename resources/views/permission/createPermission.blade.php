@@ -13,6 +13,7 @@
                     <input
                         class="form-control"
                         type="text"
+                        name="nama_pegawai"
                         placeholder="Employee Name"
                     />
                 </div>
@@ -24,6 +25,7 @@
                     <input
                         class="form-control"
                         type="text"
+                        name="nomor_induk_pegawai"
                         placeholder="Employee Number"
                     />
                 </div>
@@ -39,6 +41,7 @@
                     <input
                         type="text"
                         class="form-control datetimepicker-input"
+                        name="tanggal_mulai_ijin"
                         data-target="#reservationdate"
                         placeholder="Started Date"
                     />
@@ -64,6 +67,7 @@
                     <input
                         type="text"
                         class="form-control datetimepicker-input"
+                        name="tanggal_akhir_ijin"
                         data-target="#reservationdate"
                         placeholder="Ended Date"
                     />
@@ -82,6 +86,7 @@
             <div class="form-group" data-select2-id="29">
                 <label>Permission Types</label>
                 <select
+                    name="jenis_ijin"
                     class="form-control select2 select2-danger select2-hidden-accessible"
                     data-dropdown-css-class="select2-danger"
                     style="width: 100%"
@@ -108,12 +113,36 @@
             <div class="form-group">
                 <label>Reason</label>
                 <textarea
+                    name="alasan_ijin"
                     class="form-control"
                     rows="3"
                     placeholder="Reason ..."
                 ></textarea>
             </div>
 
+            <div
+                class="daterangepicker ltr show-ranges opensright"
+                style="
+                    display: block;
+                    top: 1779.52px;
+                    left: 606.167px;
+                    right: auto;
+                "
+            >
+                <div class="ranges">
+                    <ul>
+                        <li data-range-key="Today" class="active">Today</li>
+                        <li data-range-key="Yesterday">Yesterday</li>
+                        <li data-range-key="Last 7 Days">Last 7 Days</li>
+                        <li data-range-key="Last 30 Days" class="">
+                            Last 30 Days
+                        </li>
+                        <li data-range-key="This Month">This Month</li>
+                        <li data-range-key="Last Month">Last Month</li>
+                        <li data-range-key="Custom Range">Custom Range</li>
+                    </ul>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Status:</label>
                 <div class="input-group">
