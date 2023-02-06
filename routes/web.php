@@ -28,8 +28,21 @@ Route::get('/developer/create',[DeveloperController::class,'create']);
 Route::post('/developer/store',[DeveloperController::class,'store']);
 
 Route::get('/permission',[PermissionController::class,'index'])->name('Permission');
+
 Route::get('/create_permission',[PermissionController::class,'create']);
 Route::post('/create_permission',[PermissionController::class,'store']);
+
 Route::get('/sick_permission',[PermissionController::class,'sick']);
+Route::get('/edit_sick/{id}',[PermissionController::class,'edit_sick']);
+Route::post('/save_update_sick/{id}',[PermissionController::class,'update_sick']);
+Route::post('/cancel/sick/{id}',[PermissionController::class,'cancel_sick']);
+
 Route::get('/permit_permission',[PermissionController::class,'permit']);
+Route::get('/edit_permit/{id}',[PermissionController::class,'edit_permit']);
+Route::post('/save_update_permit/{id}',[PermissionController::class,'update_permit']);
+Route::post('/cancel/permit/{id}',[PermissionController::class,'cancel_permit']);
+
 Route::get('/leave_permission',[PermissionController::class,'leave']);
+Route::get('/edit_leave/{id}',[PermissionController::class,'edit_leave']);
+Route::post('/save_update_leave/{id}',[PermissionController::class,'update_leave']);
+Route::post('/cancel/leave/{id}',[PermissionController::class,'cancel_leave']);

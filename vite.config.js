@@ -1,27 +1,27 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
     server: {
-        origin: 'http://adminlte',
+        origin: "http://adminlte",
     },
     plugins: [
         // add css and js file
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ["resources/js/app.js"],
             refresh: true,
         }),
         // auto refresh blade files
         {
-            name: 'blade',
+            name: "blade",
             handleHotUpdate({ file, server }) {
-                if (file.endsWith('.blade.php')) {
+                if (file.endsWith(".blade.php")) {
                     server.ws.send({
-                        type: 'full-reload',
-                        path: '*',
+                        type: "full-reload",
+                        path: "*",
                     });
                 }
             },
-        }
+        },
     ],
 });

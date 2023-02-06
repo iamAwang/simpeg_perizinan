@@ -4,192 +4,186 @@
         <h3 class="card-title">Permission Form</h3>
     </div>
 
-    <form action="" method="post">
-        @csrf
-        <div class="card-body">
-            <div class="form-group">
-                <label>Full Name</label>
-                <div class="input-name">
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="nama_pegawai"
-                        placeholder="Employee Name"
-                    />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Employee Number</label>
-                <div class="input-employee-number">
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="nomor_induk_pegawai"
-                        placeholder="Employee Number"
-                    />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Started Date:</label>
-                <div
-                    class="input-group date"
-                    id="reservationdate"
-                    data-target-input="nearest"
-                >
-                    <input
-                        type="text"
-                        class="form-control datetimepicker-input"
-                        name="tanggal_mulai_ijin"
-                        data-target="#reservationdate"
-                        placeholder="Started Date"
-                    />
-                    <div
-                        class="input-group-append"
-                        data-target="#reservationdate"
-                        data-toggle="datetimepicker"
-                    >
-                        <div class="input-group-text">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Ended Date:</label>
-                <div
-                    class="input-group date"
-                    id="reservationdate"
-                    data-target-input="nearest"
-                >
-                    <input
-                        type="text"
-                        class="form-control datetimepicker-input"
-                        name="tanggal_akhir_ijin"
-                        data-target="#reservationdate"
-                        placeholder="Ended Date"
-                    />
-                    <div
-                        class="input-group-append"
-                        data-target="#reservationdate"
-                        data-toggle="datetimepicker"
-                    >
-                        <div class="input-group-text">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group" data-select2-id="29">
-                <label>Permission Types</label>
-                <select
-                    name="jenis_ijin"
-                    class="form-control select2 select2-danger select2-hidden-accessible"
-                    data-dropdown-css-class="select2-danger"
-                    style="width: 100%"
-                    data-select2-id="12"
-                    tabindex="-1"
-                    aria-hidden="true"
-                >
-                    <option selected="selected" data-select2-id="14">
-                        Sick
-                    </option>
-                    <option data-select2-id="37">Sick</option>
-                    <option data-select2-id="38">Permit</option>
-                    <option data-select2-id="39">Leave</option></select
-                ><span
-                    class="select2 select2-container select2-container--default select2-container--above select2-container--focus"
-                    dir="ltr"
-                    data-select2-id="13"
-                    style="width: 100%"
-                    ><span class="selection"></span
-                    ><span class="dropdown-wrapper" aria-hidden="true"></span
-                ></span>
-            </div>
-
-            <div class="form-group">
-                <label>Reason</label>
-                <textarea
-                    name="alasan_ijin"
+    <form action=<?php @$edit!=null? printf('/save_update_sick'.'/'.$edit->id) :
+    printf('/create_permission') ?> method="post"> @csrf
+    <div class="card-body">
+        <div class="form-group">
+            <label>Full Name</label>
+            <div class="input-name">
+                <input
+                    name="nama_pegawai"
                     class="form-control"
-                    rows="3"
-                    placeholder="Reason ..."
-                ></textarea>
+                    type="text"
+                    placeholder="Employee Name"
+                    value="<?php if(@$edit!=null) printf($edit->full_name) ?>"
+                />
+                @error('name')
+                <div class="invalid-feedback">
+                    {{$message}}
+              </div>
+            @enderror
             </div>
-
-            <div
-                class="daterangepicker ltr show-ranges opensright"
-                style="
-                    display: block;
-                    top: 1779.52px;
-                    left: 606.167px;
-                    right: auto;
-                "
-            >
-                <div class="ranges">
-                    <ul>
-                        <li data-range-key="Today" class="active">Today</li>
-                        <li data-range-key="Yesterday">Yesterday</li>
-                        <li data-range-key="Last 7 Days">Last 7 Days</li>
-                        <li data-range-key="Last 30 Days" class="">
-                            Last 30 Days
-                        </li>
-                        <li data-range-key="This Month">This Month</li>
-                        <li data-range-key="Last Month">Last Month</li>
-                        <li data-range-key="Custom Range">Custom Range</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Status:</label>
-                <div class="input-group">
-                    <button
-                        type="button"
-                        class="btn btn-default float-right"
-                        id="daterange-btn"
-                    >
-                        <i class="fa fa-user-check"></i> Permission Status
-                        <i class="fas fa-caret-down"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Status:</label>
-                <div class="input-group">
-                    <button
-                        type="button"
-                        class="btn btn-default float-right"
-                        id="daterange-btn"
-                    >
-                        <i class="fa fa-user-slash"></i> Rejected By
-                        <i class="fas fa-caret-down"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Rejection Reason</label>
-                <textarea
-                    class="form-control"
-                    rows="3"
-                    placeholder="Rejection Reason ..."
-                ></textarea>
-            </div>
-            <div class="row">
-                <div class="card-footer" style="margin-left: 0pt">
-                    <button type="submit" class="btn btn-danger">
-                        <a href="/permission" style="color: white">Back</a>
-                    </button>
-                </div>
-                <div class="card-footer" style="margin-right: 0pt">
-                    <button type="submit" class="btn btn-danger">Submit</button>
-                </div>
-            </div>
-            @endsection
         </div>
-    </form>
+
+        <div class="form-group">
+            <label>Employee Number</label>
+            <div class="input-employee-number">
+                <input
+                    name="nomor_induk_pegawai"
+                    class="form-control"
+                    type="text"
+                    placeholder="Employee Number"
+                    value="<?php if(@$edit!=null) printf($edit->employee_number)
+            ?>"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Started Date:</label>
+            <div
+                class="input-group date"
+                id="reservationdate"
+                data-target-input="nearest"
+            >
+                <input
+                    name="tanggal_mulai_izin"
+                    type="date"
+                    class="form-control datetimepicker-input"
+                    data-target="#reservationdate"
+                    placeholder="Started Date"
+                    value="<?php if(@$edit!=null) printf($edit->started_date)
+            ?>"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Ended Date:</label>
+            <div
+                class="input-group date"
+                id="reservationdate"
+                data-target-input="nearest"
+            >
+                <input
+                    name="tanggal_selesai_izin"
+                    type="date"
+                    class="form-control datetimepicker-input"
+                    data-target="#reservationdate"
+                    placeholder="Ended Date"
+                    value="<?php if(@$edit!=null) printf($edit->ended_date)
+            ?>"
+                />
+            </div>
+        </div>
+
+        <div class="form-group" data-select2-id="29">
+            <label>Permission Types</label>
+            <select
+                name="jenis_izin"
+                class="form-control select2 select2-danger select2-hidden-accessible"
+                data-dropdown-css-class="select2-danger"
+                style="width: 100%"
+                data-select2-id="12"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+
+        @foreach ($id_permissionTypes as $id_permissionType)
+            @if (@$edit->id_PermissionType == $id_permissionType->id)
+                <option value="{{$id_permissionType->id}}" selected>{{$id_permissionType->name}}</option>
+            @else 
+                <option value="{{$id_permissionType->id}}">{{$id_permissionType->name}}</option>
+            @endif
+        @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Reason</label>
+            <textarea
+                name="alasam_izin"
+                class="form-control"
+                rows="3"
+                placeholder="Reason ..."
+            >
+<?php if(@$edit!=null) printf($edit->reason)
+                ?></textarea
+            >
+        </div>
+        <div class="form-group" data-select2-id="29">
+            <label>Permission Status</label>
+            <select
+                name="status_izin"
+                class="form-control select2 select2-danger select2-hidden-accessible"
+                data-dropdown-css-class="select2-danger"
+                style="width: 100%"
+                data-select2-id="12"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                {{-- <option value="" disabled selected>Permission Status</option> --}}
+                <option data-select2-id="37">Menunggu Konfirmasi</option>
+                <option data-select2-id="37">Disetujui Atasan 1</option>
+                <option data-select2-id="38">Disetujui Atasan 2</option>
+                <option data-select2-id="39">Disetujui Atasan 3</option></select
+            ><span
+                class="select2 select2-container select2-container--default select2-container--above select2-container--focus"
+                dir="ltr"
+                data-select2-id="13"
+                style="width: 100%"
+                ><span class="selection"></span
+                ><span class="dropdown-wrapper" aria-hidden="true"></span
+            ></span>
+        </div>
+
+        <div class="form-group" data-select2-id="29">
+            <label>Rejected By</label>
+            <select
+                name="penolak_izin"
+                class="form-control select2 select2-danger select2-hidden-accessible"
+                data-dropdown-css-class="select2-danger"
+                style="width: 100%"
+                data-select2-id="12"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                @foreach ($id_rejectedBys as $id_rejectedBy) {{-- @if
+                (@$edit->id_rejectedBy->id == $id_rejectedBy->id)
+                <option value="{{$id_rejectedBy->id}}" selected>
+                    {{$id_rejectedBy->name}}
+                </option>
+                @else --}}
+                <option value="{{$id_rejectedBy->id}}">
+                    {{$id_rejectedBy->name}}
+                </option>
+                {{-- @endif --}}
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Rejection Reason</label>
+            <textarea
+                name="alasan_penolakan"
+                class="form-control"
+                rows="3"
+                placeholder="Rejection Reason ..."
+            >
+<?php if(@$edit!=null) printf($edit->rejection_reason)
+                ?></textarea
+            >
+        </div>
+        <div class="row">
+            <div class="card-footer" style="margin-left: 0pt">
+                <button type="submit" class="btn btn-danger">
+                    <a href="/permission" style="color: white">Back</a>
+                </button>
+            </div>
+            <div class="card-footer" style="margin-right: 0pt">
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+        </div>
+        @endsection
+    </div>
 </div>

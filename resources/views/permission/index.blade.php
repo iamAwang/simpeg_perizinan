@@ -1,6 +1,10 @@
-@extends('layouts.app') @section('header')
+@extends('layouts.app')@section('header')
 <h5>Permission History</h5>
-@endsection @section('content')
+@endsection @section('content') @if ($message = Session::get('success'))
+<div class="alert alert-success" role="alert">
+    {{ $message }}
+</div>
+@endif
 <div class="row">
     <div class="col-md-4 col-sm-6 col-12">
         <div class="info-box bg-info">
@@ -19,7 +23,7 @@
     </div>
 
     <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-success">
+        <div class="info-box bg-info">
             <span class="info-box-icon">
                 <i class="fa fa-file-signature"></i>
             </span>
@@ -35,7 +39,7 @@
     </div>
 
     <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-warning">
+        <div class="info-box bg-info">
             <span class="info-box-icon">
                 <i class="fa fa-house-user" style="color: white"></i>
             </span>
@@ -51,8 +55,15 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4 col-sm-6 col-12">
+<div
+    style="
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+        grid-gap: 15px;
+    "
+>
+    <div style="grid-column: 1/5">
         <div class="info-box bg-danger">
             <span class="info-box-icon">
                 <i class="fa fa-folder-plus"></i>
@@ -68,9 +79,64 @@
                 <span class="progress-description"> 6/12 </span>
             </div>
         </div>
+
+        <div class="card card-widget widget-user-2">
+            <div class="widget-user-header bg-dark">
+                <div class="widget-user-image">
+                    <img
+                        class="img-circle elevation-2"
+                        src="../dist/img/user7-128x128.jpg"
+                        alt="User Avatar"
+                    />
+                </div>
+
+                <h3 class="widget-user-username">Ridho S</h3>
+                <h5 class="widget-user-desc">CEO</h5>
+            </div>
+            <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a
+                            href="/sick_permission"
+                            class="nav-link"
+                            style="color: black"
+                        >
+                            Sick
+                            <span class="float-right badge bg-info">2</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="/permit_permission"
+                            class="nav-link"
+                            style="color: black"
+                        >
+                            Permit
+                            <span class="float-right badge bg-info">1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            href="/leave_permission"
+                            class="nav-link"
+                            style="color: black"
+                        >
+                            Leave
+                            <span class="float-right badge bg-info">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black">
+                            Amount
+                            <span class="float-right badge bg-danger">6</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="col-8">
+    <div style="grid-column: 5/13">
         <div class="card bg-gradient-default">
             <div
                 class="card-header border-0 ui-sortable-handle"
@@ -124,7 +190,7 @@
                         <ul class="list-unstyled">
                             <li class="show">
                                 <div class="datepicker">
-                                    <div class="datepicker-days" style="">
+                                    <div class="datepicker-days">
                                         <table class="table table-sm">
                                             <thead>
                                                 <tr>
@@ -796,44 +862,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="col-md-4 col-sm-6 col-12">
-    <div class="card card-widget widget-user-2">
-        <div class="widget-user-header bg-dark">
-            <div class="widget-user-image">
-                <img
-                    class="img-circle elevation-2"
-                    src="../dist/img/user7-128x128.jpg"
-                    alt="User Avatar"
-                />
-            </div>
-
-            <h3 class="widget-user-username">Ridho S</h3>
-            <h5 class="widget-user-desc">CEO</h5>
-        </div>
-        <div class="card-footer p-0">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black">
-                        Sick
-                        <span class="float-right badge bg-info">31</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black">
-                        Permit
-                        <span class="float-right badge bg-success">5</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" style="color: black">
-                        Leave
-                        <span class="float-right badge bg-warning">12</span>
-                    </a>
-                </li>
-            </ul>
         </div>
     </div>
 </div>

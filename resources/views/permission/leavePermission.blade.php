@@ -1,11 +1,14 @@
 @extends('layouts.app') @section('content')
+@if ($message = Session::get('success'))
+<div class="alert alert-success" role="alert">
+    {{ $message }}
+</div>
+@endif
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header" style="background-color: #ffc107b8">
-                <h3 class="card-title" style="color: white">
-                    Leave Permission
-                </h3>
+            <div class="card-header" style="background-color: #17a2b8">
+                <h3 class="card-title" style="color: white">Leave Permission</h3>
                 <div class="card-tools">
                     <div
                         class="input-group input-group-sm"
@@ -37,26 +40,59 @@
                             <th>Ended Date</th>
                             <th>Permission Type</th>
                             <th>Reason</th>
-                            <th>Status</th>
+                            <th>Permission Status</th>
                             <th>Rejected By</th>
                             <th>Rejection Reason</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="text-align: center">
-                            <td>183</td>
-                            <td>Ridho</td>
-                            <td>123654</td>
-                            <td>03-03-2023</td>
-                            <td>03-05-2023</td>
-                            <td>Leave</td>
-                            <td>Marriage Leave</td>
-                            <td>
-                                <span class="tag tag-success">Approved</span>
-                            </td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
+                        @php
+                            $no=1;    
+                        @endphp
+                       @foreach ($leave_permissions as $permission)
+                       <tr style="text-align: center">
+                        <td>{{$no}}</td>
+                        <td>{{$permission->full_name}}</td>
+                        <td>{{$permission->employee_number}}</td>
+                        <td>{{$permission->started_date}}</td>
+                        <td>{{$permission->ended_date}}</td>
+                        <td>{{$permission->types->name}}</td>
+                        <td>{{$permission->reason}}</td>
+                        <td>{{$permission->status}}</td>
+                        <td>{{$permission->rejecteds->name}}</td>
+                        <td>{{$permission->rejection_reason}}</td>
+                        <td>
+                            <div class="btn-group">
+                                <span
+                                    class="btn btn-success col fileinput-button dz-clickable"
+                                >
+                                    <i class="fas fa-plus"></i>
+                                    <a href="/edit_leave/{{$permission->id}}" style="color: white"
+                                        >Edit</a
+                                    >
+                                </span>
+                                <form action="/cancel/leave/{{$permission->id}}" method="post">
+                                    @csrf
+                                <button
+                                    type="submit"
+                                    class="btn btn-warning col cancel"
+                                >
+                                    <i
+                                        class="fas fa-times-circle"
+                                        style="color: white"
+                                    ></i>
+                                    <span style="color: white">Cancel</span>
+                                </button>
+                            </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @php
+                        $no++;
+                    @endphp
+                       @endforeach
+                        
                     </tbody>
                 </table>
             </div>
@@ -64,7 +100,7 @@
     </div>
 </div>
 <div class="card-footer" style="margin-left: 0pt">
-    <button type="submit" class="btn btn-warning">
+    <button type="submit" class="btn btn-info">
         <a href="/permission" style="color: white">Back</a>
     </button>
 </div>
