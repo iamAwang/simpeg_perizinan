@@ -56,6 +56,7 @@ class PermissionController extends Controller
     }
     public function edit_sick($id){
         $edit = Permission_Form::find($id);
+        // dd($edit);
         $id_permissionTypes = Permission_Types::all();
         $id_rejectedBys = Rejected_Bys::all();
         return view ('permission.createPermission',compact(['edit','id_permissionTypes','id_rejectedBys']));
@@ -108,10 +109,7 @@ class PermissionController extends Controller
         $permission->rejection_reason = $request->alasan_penolakan;
 
         $permission->save();
-        // dd($permission);
-        if ($request->jenis_izin==2) {
-            return redirect('/permit_permission')->with('success','Permit Permission Has Been Updated');
-        }
+        return redirect('/permit_permission')->with('success','Permit Permission Has Been Updated !');
     }
     public function cancel_permit($id){
         $permission = Permission_Form::find($id);

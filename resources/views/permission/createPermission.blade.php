@@ -4,7 +4,15 @@
         <h3 class="card-title">Permission Form</h3>
     </div>
 
-    <form action=<?php @$edit!=null? printf('/save_update_sick'.'/'.$edit->id) :
+    <form action=<?php @$edit!=null? 
+    // @if (@$edit->id_PermissionType === 1)
+    // printf('/save_update_sick'.'/'.$edit->id)
+    // @elseif (@$edit->id_PermissionType === 2)
+    // printf('/save_update_permit'.'/'.$edit->id)
+    // @else
+    // printf('/save_update_leave'.'/'.$edit->id)
+    // @endif 
+    printf('/save_update_sick'.'/'.$edit->id) :
     printf('/create_permission') ?> method="post"> @csrf
     <div class="card-body">
         <div class="form-group">
@@ -123,11 +131,15 @@
                 aria-hidden="true"
             >
                 {{-- <option value="" disabled selected>Permission Status</option> --}}
-                <option data-select2-id="37">Menunggu Konfirmasi</option>
-                <option data-select2-id="37">Disetujui Atasan 1</option>
-                <option data-select2-id="38">Disetujui Atasan 2</option>
-                <option data-select2-id="39">Disetujui Atasan 3</option></select
-            ><span
+                {{-- @if (@$edit->status->status_izin)
+                @endif --}}
+                <option data-select2-id="37" value="1">Menunggu Konfirmasi</option>
+                <option data-select2-id="37" value="2">Disetujui Atasan 1</option>
+                <option data-select2-id="38" value="3">Disetujui Atasan 2</option>
+                <option data-select2-id="39" value="4">Disetujui Atasan 3</option>
+            </select>
+            
+            <span
                 class="select2 select2-container select2-container--default select2-container--above select2-container--focus"
                 dir="ltr"
                 data-select2-id="13"
@@ -148,16 +160,16 @@
                 tabindex="-1"
                 aria-hidden="true"
             >
-                @foreach ($id_rejectedBys as $id_rejectedBy) {{-- @if
-                (@$edit->id_rejectedBy->id == $id_rejectedBy->id)
+                @foreach ($id_rejectedBys as $id_rejectedBy) 
+                @if (@$edit->id_RejectedBy == $id_rejectedBy->id)
                 <option value="{{$id_rejectedBy->id}}" selected>
                     {{$id_rejectedBy->name}}
                 </option>
-                @else --}}
+                @else
                 <option value="{{$id_rejectedBy->id}}">
                     {{$id_rejectedBy->name}}
                 </option>
-                {{-- @endif --}}
+                @endif
                 @endforeach
             </select>
         </div>
