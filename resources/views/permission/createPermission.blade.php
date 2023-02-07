@@ -1,28 +1,36 @@
 @extends('layouts.app') @section('content')
-<div class="card card-danger">
-    <div class="card-header">
-        <h3 class="card-title">Permission Form</h3>
+<div class="card">
+    <div class="card-header" style="background-color: #343a40">
+        <h3 class="card-title" style="color: white">Permission Form / Formulir Izin</h3>
     </div>
+    <?php
+        $url_permission = "";
+        if(@$edit){
+            if($edit->id_PermissionType == 1){
+                $url_permission = "/save_update_sick/$edit->id";
+            }
+            elseif($edit->id_PermissionType == 2){
+                $url_permission = "/save_update_permit/$edit->id";
+            }
+            else{
+                $url_permission = "/save_update_leave/$edit->id";
+            }
+        }
+    ?>
 
     <form action=<?php @$edit!=null? 
-    // @if (@$edit->id_PermissionType === 1)
-    // printf('/save_update_sick'.'/'.$edit->id)
-    // @elseif (@$edit->id_PermissionType === 2)
-    // printf('/save_update_permit'.'/'.$edit->id)
-    // @else
-    // printf('/save_update_leave'.'/'.$edit->id)
-    // @endif 
-    printf('/save_update_sick'.'/'.$edit->id) :
+    
+    printf( $url_permission):
     printf('/create_permission') ?> method="post"> @csrf
     <div class="card-body">
         <div class="form-group">
-            <label>Full Name</label>
+            <label>Full Name / Nama</label>
             <div class="input-name">
                 <input
                     name="nama_pegawai"
                     class="form-control"
                     type="text"
-                    placeholder="Employee Name"
+                    placeholder="Employee Name / Nama Pegawai"
                     value="<?php if(@$edit!=null) printf($edit->full_name) ?>"
                 />
                 @error('name')
@@ -34,13 +42,13 @@
         </div>
 
         <div class="form-group">
-            <label>Employee Number</label>
+            <label>Employee Number / Nomor Induk Pegawai</label>
             <div class="input-employee-number">
                 <input
                     name="nomor_induk_pegawai"
                     class="form-control"
                     type="text"
-                    placeholder="Employee Number"
+                    placeholder="Employee Number / Nomor Induk Pegawai"
                     value="<?php if(@$edit!=null) printf($edit->employee_number)
             ?>"
                 />
@@ -48,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            <label>Started Date:</label>
+            <label>Started Date / Tanggal Mulai</label>
             <div
                 class="input-group date"
                 id="reservationdate"
@@ -67,7 +75,7 @@
         </div>
 
         <div class="form-group">
-            <label>Ended Date:</label>
+            <label>Ended Date / Tanggal Selesai</label>
             <div
                 class="input-group date"
                 id="reservationdate"
@@ -86,7 +94,7 @@
         </div>
 
         <div class="form-group" data-select2-id="29">
-            <label>Permission Types</label>
+            <label>Permission Types / Jenis Izin</label>
             <select
                 name="jenis_izin"
                 class="form-control select2 select2-danger select2-hidden-accessible"
@@ -108,19 +116,19 @@
         </div>
 
         <div class="form-group">
-            <label>Reason</label>
+            <label>Reason / Alasan</label>
             <textarea
                 name="alasam_izin"
                 class="form-control"
                 rows="3"
-                placeholder="Reason ..."
+                placeholder="Reason / Alasan ..."
             >
 <?php if(@$edit!=null) printf($edit->reason)
                 ?></textarea
             >
         </div>
         <div class="form-group" data-select2-id="29">
-            <label>Permission Status</label>
+            <label>Permission Status / Status Izin</label>
             <select
                 name="status_izin"
                 class="form-control select2 select2-danger select2-hidden-accessible"
@@ -131,12 +139,42 @@
                 aria-hidden="true"
             >
                 {{-- <option value="" disabled selected>Permission Status</option> --}}
-                {{-- @if (@$edit->status->status_izin)
-                @endif --}}
-                <option data-select2-id="37" value="1">Menunggu Konfirmasi</option>
-                <option data-select2-id="37" value="2">Disetujui Atasan 1</option>
-                <option data-select2-id="38" value="3">Disetujui Atasan 2</option>
-                <option data-select2-id="39" value="4">Disetujui Atasan 3</option>
+                {{-- <option data-select2-id="37" value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
+                <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
+                <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option> --}}
+
+                @if (@$edit->status)
+                        @if($edit->status == "Menunggu Konfirmasi")
+                        <option data-select2-id="37" value="Menunggu Konfirmasi" selected>Menunggu Konfirmasi</option>
+                        <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
+                        <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
+                        <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option>
+                        @endif
+                        @if($edit->status == "Disetujui Atasan 1")
+                        <option data-select2-id="37" value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                        <option data-select2-id="37" value="Disetujui Atasan 1" selected>Disetujui Atasan 1</option>
+                        <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
+                        <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option>
+                        @endif
+                        @if($edit->status == "Disetujui Atasan 2")
+                        <option data-select2-id="37" value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                        <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
+                        <option data-select2-id="38" value="Disetujui Atasan 2" selected>Disetujui Atasan 2</option>
+                        <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option>
+                        @endif
+                        @if($edit->status == "Disetujui Atasan 3")
+                        <option data-select2-id="37" value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                        <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
+                        <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
+                        <option data-select2-id="39" value="Disetujui Atasan 3" selected>Disetujui Atasan 3</option>
+                        @endif
+                        @else
+                        <option data-select2-id="37" value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                        <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
+                        <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
+                        <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option>
+                @endif
             </select>
             
             <span
@@ -150,7 +188,7 @@
         </div>
 
         <div class="form-group" data-select2-id="29">
-            <label>Rejected By</label>
+            <label>Rejected By / Ditolak Oleh</label>
             <select
                 name="penolak_izin"
                 class="form-control select2 select2-danger select2-hidden-accessible"
@@ -175,12 +213,12 @@
         </div>
 
         <div class="form-group">
-            <label>Rejection Reason</label>
+            <label>Rejection Reason / Alasan Penolakan</label>
             <textarea
                 name="alasan_penolakan"
                 class="form-control"
                 rows="3"
-                placeholder="Rejection Reason ..."
+                placeholder="Rejection Reason / Alasan Penolakan ..."
             >
 <?php if(@$edit!=null) printf($edit->rejection_reason)
                 ?></textarea
@@ -188,12 +226,12 @@
         </div>
         <div class="row">
             <div class="card-footer" style="margin-left: 0pt">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-dark">
                     <a href="/permission" style="color: white">Back</a>
                 </button>
             </div>
             <div class="card-footer" style="margin-right: 0pt">
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <button type="submit" class="btn btn-dark">Submit</button>
             </div>
         </div>
         @endsection

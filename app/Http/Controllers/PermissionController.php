@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Models\Permission_Form;
 use App\Models\Permission_Types;
 use App\Models\Rejected_Bys;
+use App\Models\Permission_History;
 
 class PermissionController extends Controller
 {
@@ -81,7 +82,7 @@ class PermissionController extends Controller
         $permission = Permission_Form::find($id);
         $name = $permission->name;
         $permission->delete();
-        return redirect('/permission')->with('success','Sick Permission Has Been Cancelled !');
+        return redirect('/sick_permission')->with('success','Sick Permission Has Been Cancelled !');
     }
 
     public function permit()
@@ -115,7 +116,7 @@ class PermissionController extends Controller
         $permission = Permission_Form::find($id);
         $name = $permission->name;
         $permission->delete();
-        return redirect('/permission')->with('success','Permit Permission Has Been Cancelled !');
+        return redirect('/permit_permission')->with('success','Permit Permission Has Been Cancelled !');
     }
 
     public function leave()
@@ -149,6 +150,11 @@ class PermissionController extends Controller
         $permission = Permission_Form::find($id);
         $name = $permission->name;
         $permission->delete();
-        return redirect('/permission')->with('success','Leave Permission Has Been Cancelled !');
+        return redirect('/leave_permission')->with('success','Leave Permission Has Been Cancelled !');
+    }
+    public function history()
+    {
+        $history_permissions = Permission_Form::all();
+        return view ('permission.history',compact('history_permissions'));
     }
 }

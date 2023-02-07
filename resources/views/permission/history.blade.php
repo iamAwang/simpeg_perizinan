@@ -1,14 +1,10 @@
-@extends('layouts.app') @section('content')
-@if ($message = Session::get('success'))
-<div class="alert alert-success" role="alert">
-    {{ $message }}
-</div>
-@endif
+@extends('layouts.app') 
+@section('content') 
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header" style="background-color: #17a2b8">
-                <h3 class="card-title" style="color: white">Sick Permission / Izin Sakit</h3>
+            <div class="card-header" style="background-color: #343a40">
+                <h3 class="card-title" style="color: white">Permission History / Riwayat Izin</h3>
                 <div class="card-tools">
                 </div>
             </div>
@@ -34,7 +30,7 @@
                         @php
                             $no=1;    
                         @endphp
-                       @foreach ($sick_permissions as $permission)
+                       @foreach ($history_permissions  as $permission)
                        <tr style="text-align: center">
                         <td>{{$no}}</td>
                         <td>{{$permission->full_name}}</td>
@@ -83,7 +79,7 @@
     </div>
 </div>
 <div class="card-footer" style="margin-left: 0pt">
-    <button type="submit" class="btn btn-info">
+    <button type="submit" class="btn btn-dark">
         <a href="/permission" style="color: white">Back</a>
     </button>
 </div>

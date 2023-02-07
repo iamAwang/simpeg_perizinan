@@ -9,25 +9,9 @@
         <div class="card">
             <div class="card-header" style="background-color: #17a2b8">
                 <h3 class="card-title" style="color: white">
-                    Permit Permission
+                    Permit Permission / Izin Pegawai
                 </h3>
                 <div class="card-tools">
-                    <div
-                        class="input-group input-group-sm"
-                        style="width: 150px"
-                    >
-                        <input
-                            type="text"
-                            name="table_search"
-                            class="form-control float-right"
-                            placeholder="Search"
-                        />
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -37,16 +21,16 @@
                         
                         <tr style="text-align: center">
                             <th>ID</th>
-                            <th>Full Name</th>
-                            <th>Employee Number</th>
-                            <th>Started Date</th>
-                            <th>Ended Date</th>
-                            <th>Permission Type</th>
-                            <th>Reason</th>
-                            <th>Status</th>
-                            <th>Rejected By</th>
-                            <th>Rejection Reason</th>
-                            <th>Action</th>
+                            <th>Full Name / Nama</th>
+                            <th>Employee Number / Nomor Induk Pegawai</th>
+                            <th>Started Date / Tanggal Mulai</th>
+                            <th>Ended Date / Tanggal Selesai</th>
+                            <th>Permission Type / Jenis Izin</th>
+                            <th>Reason / Alasan</th>
+                            <th>Permission Status / Status Izin</th>
+                            <th>Rejected By / Ditolak Oleh</th>
+                            <th>Rejection Reason / Alasan Penolakan</th>
+                            <th>Action / Aksi</th>
                         </tr> 
                         
                         
@@ -92,10 +76,10 @@
                                 
                                 </div></td>
                         </tr>
-                        @endforeach
                         @php
                             $no++;
                         @endphp
+                        @endforeach
                     </tbody>
                 </table>
             </div>

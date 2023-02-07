@@ -46,3 +46,5 @@ Route::get('/leave_permission',[PermissionController::class,'leave']);
 Route::get('/edit_leave/{id}',[PermissionController::class,'edit_leave']);
 Route::post('/save_update_leave/{id}',[PermissionController::class,'update_leave']);
 Route::post('/cancel/leave/{id}',[PermissionController::class,'cancel_leave']);
+
+Route::get('/permission_history',[PermissionController::class,'history']);
