@@ -23,7 +23,6 @@
                             <th>Permission Status / Status Izin</th>
                             <th>Rejected By / Ditolak Oleh</th>
                             <th>Rejection Reason / Alasan Penolakan</th>
-                            <th>Action / Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,34 +38,9 @@
                         <td>{{$permission->ended_date}}</td>
                         <td>{{$permission->types->name}}</td>
                         <td>{{$permission->reason}}</td>
-                        <td>{{$permission->status}}</td>
-                        <td>{{$permission->rejecteds->name}}</td>
-                        <td>{{$permission->rejection_reason}}</td>
-                        <td>
-                            <div class="btn-group">
-                                <span
-                                    class="btn btn-success col fileinput-button dz-clickable"
-                                >
-                                    <i class="fas fa-plus"></i>
-                                    <a href="/edit_sick/{{$permission->id}}" style="color: white"
-                                        >Edit</a
-                                    >
-                                </span>
-                                <form action="/cancel/sick/{{$permission->id}}" method="post">
-                                    @csrf
-                                <button
-                                    type="submit"
-                                    class="btn btn-warning col cancel"
-                                >
-                                    <i
-                                        class="fas fa-times-circle"
-                                        style="color: white"
-                                    ></i>
-                                    <span style="color: white">Cancel</span>
-                                </button>
-                            </form>
-                            </div>
-                        </td>
+                        <td>{{@$permission->status}}</td>
+                        <td>{{@$permission->rejecteds->name}}</td>
+                        <td>{{@$permission->rejection_reason}}</td>
                     </tr>
                     @php
                         $no++;

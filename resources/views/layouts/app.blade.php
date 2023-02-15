@@ -79,6 +79,7 @@
         <section class="content">
 
         @yield('content')
+        @yield('atasan')
         </section>
     </div>
 

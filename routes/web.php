@@ -48,3 +48,16 @@ Route::post('/save_update_leave/{id}',[PermissionController::class,'update_leave
 Route::post('/cancel/leave/{id}',[PermissionController::class,'cancel_leave']);
 
 Route::get('/permission_history',[PermissionController::class,'history']);
+
+Route::get('/accepted',[PermissionController::class,'accepted']);
+Route::post('/accepted',[PermissionController::class,'store_accepted']);
+
+Route::get('/edit_permission_acceptation/{id}',[PermissionController::class,'acceptation_form']);
+Route::post('/save_acceptation/{id}',[PermissionController::class,'update_acceptation']);
+
+Route::get('/rejected',[PermissionController::class,'rejected']);
+Route::post('/rejected',[PermissionController::class,'store_rejected']);
+
+Route::get('/edit_permission_rejection/{id}',[PermissionController::class,'rejection_form']);
+Route::post('/save_rejection/{id}',[PermissionController::class,'update_rejection']);
+

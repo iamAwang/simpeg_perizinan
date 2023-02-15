@@ -42,9 +42,9 @@ Session::get('success'))
                             <td>{{$permission->ended_date}}</td>
                             <td>{{$permission->types->name}}</td>
                             <td>{{$permission->reason}}</td>
-                            <td>{{$permission->status}}</td>
-                            <td>{{$permission->rejecteds->name}}</td>
-                            <td>{{$permission->rejection_reason}}</td>
+                            <td>{{@$permission->status}}</td>
+                            <td>{{@$permission->rejecteds->name}}</td>
+                            <td>{{@$permission->rejection_reason}}</td>
                             <td>
                                 <div class="btn-group">
                                     <span
