@@ -51,7 +51,7 @@
                                 <span
                                     class="btn btn-success col fileinput-button dz-clickable"
                                 >
-                                    <i class="fas fa-plus"></i>
+                                <i class="fas fa-pencil-alt"></i>
                                     <a href="/edit_sick/{{$permission->id}}" style="color: white"
                                         >Edit</a
                                     >
@@ -62,10 +62,7 @@
                                     type="submit"
                                     class="btn btn-warning col cancel"
                                 >
-                                    <i
-                                        class="fas fa-times-circle"
-                                        style="color: white"
-                                    ></i>
+                                <i class="fas fa-trash" style="color:white"></i>
                                     <span style="color: white">Cancel</span>
                                 </button>
                             </form>

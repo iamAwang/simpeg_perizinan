@@ -1,10 +1,7 @@
-@extends('layouts.app')
-@if(Auth::user()->role_id == 2) @section('pegawai')
+@extends('layouts.app') @if(Auth::user()->role_id == 2) @section('pegawai')
 @section('header')
 <h5>Your Permission / Izin Anda</h5>
-@endsection 
-@section('content') 
-@if ($message = Session::get('success'))
+@endsection @section('content') @if ($message = Session::get('success'))
 <div class="alert alert-success" role="alert">
     {{ $message }}
 </div>
@@ -28,10 +25,10 @@
                         >Create Permission / Buat Izin</a
                     >
                     <!-- <span class="info-box-text">Create Permission</span> -->
-                    <div class="progress">
+                    {{-- <div class="progress">
                         <div class="progress-bar" style="width: 50%"></div>
                     </div>
-                    <span class="progress-description"> 6/12 </span>
+                    <span class="progress-description"> 6/12 </span> --}}
                 </div>
             </div>
         </div>
@@ -47,9 +44,12 @@
                     >
                     <!-- <span class="info-box-text">Create Permission</span> -->
                     <div class="progress">
-                        <div class="progress-bar" style="width: 50%"></div>
+                        <?php
+                        $progress_sakit =  Auth::user()->employee->permissions->count()/12 * 100;
+                    ?>
+                        <div class="progress-bar" style="width: {{$progress_sakit}}%"></div>
                     </div>
-                    <span class="progress-description"> 6/12 </span>
+                    <span class="progress-description"> {{Auth::user()->employee->permissions->count()}}/12 </span>
                 </div>
             </div>
         </div>
@@ -66,9 +66,12 @@
                 <a href="/sick_permission" style="color: white">Sick / Sakit</a>
                 <!-- <span class="info-box-text">Sick</span> -->
                 <div class="progress">
-                    <div class="progress-bar" style="width: 50%"></div>
+                    <?php
+                        $progress_sakit =  Auth::user()->employee->permissions->where('id_PermissionType',1)->count()/4 * 100;
+                    ?>
+                    <div class="progress-bar" style="width: {{$progress_sakit}}%"></div>
                 </div>
-                <span class="progress-description"> 2/4 </span>
+                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',1)->count()}}/4 </span>
             </div>
         </div>
     </div>
@@ -84,9 +87,12 @@
                 >
                 <!-- <span class="info-box-text">Permit</span> -->
                 <div class="progress">
-                    <div class="progress-bar" style="width: 25%"></div>
+                    <?php
+                        $progress_izin =  Auth::user()->employee->permissions->where('id_PermissionType',2)->count()/4 * 100;
+                    ?>
+                    <div class="progress-bar" style="width: {{$progress_izin}}%"></div>
                 </div>
-                <span class="progress-description"> 1/4 </span>
+                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',2)->count()}}/4 </span>
             </div>
         </div>
     </div>
@@ -102,17 +108,18 @@
                 >
                 <!-- <span class="info-box-text">Leave</span> -->
                 <div class="progress">
-                    <div class="progress-bar" style="width: 75%"></div>
+                    <?php
+                        $progress_cuti =  Auth::user()->employee->permissions->where('id_PermissionType',3)->count()/4 * 100;
+                    ?>
+                    <div class="progress-bar" style="width: {{$progress_cuti}}%"></div>
                 </div>
-                <span class="progress-description"> 3/4 </span>
+                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',2)->count()}}/4 </span>
             </div>
         </div>
     </div>
 </div>
-@endsection @endif
 
-
-@if(Auth::user()->role_id == 3) @section('atasan')
+@endsection @endif @if(Auth::user()->role_id == 3) @section('atasan')
 @section('header')
 <h5>Your Aceptation & Rejection / Persetujuan & Penolakan Anda</h5>
 @endsection
@@ -125,14 +132,12 @@
     "
 >
     <div style="grid-column: 3/7">
-        <div class="info-box" style="background-color: #1A4314">
+        <div class="info-box" style="background-color: #1a4314">
             <span class="info-box-icon" style="color: white">
                 <i class="fa fa-circle-check"></i>
             </span>
             <div class="info-box-content">
-                <a href="/accepted" style="color: white"
-                    >Accepted / Diterima</a
-                >                
+                <a href="/accepted" style="color: white">Accepted / Diterima</a>
             </div>
         </div>
     </div>
@@ -143,9 +148,7 @@
                 <i class="fas fa-times-circle" style="color: white"></i>
             </span>
             <div class="info-box-content">
-                <a href="/rejected" style="color: white"
-                    >Rejected / Ditolak</a
-                >                
+                <a href="/rejected" style="color: white">Rejected / Ditolak</a>
             </div>
         </div>
     </div>
@@ -184,7 +187,10 @@
                                     <div class="btn-group">
                                         <span
                                             class="btn btn-success col fileinput-button dz-clickable"
-                                            style="height: 50%; background-color:#1A4314"
+                                            style="
+                                                height: 50%;
+                                                background-color: #1a4314;
+                                            "
                                         >
                                             <i class="fa fa-circle-check"></i>
                                             <a
@@ -204,7 +210,9 @@
                                             <button
                                                 type="submit"
                                                 class="btn btn-danger col cancel"
-                                                style="background-color: #800000"
+                                                style="
+                                                    background-color: #800000;
+                                                "
                                             >
                                                 <i
                                                     class="fas fa-times-circle"
