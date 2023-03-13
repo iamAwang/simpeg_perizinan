@@ -31,6 +31,11 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $file = $request->file('foto');
+        $name = $file->hashName();
+        $ext = $file->getClientOriginalExtension();
+        // dd($name);
+        $file->store('photos','public');
         Permission_Form::create([
         'full_name' => $request->nama_pegawai,
         'employee_number' => $request->nomor_induk_pegawai,
@@ -40,7 +45,8 @@ class PermissionController extends Controller
         'reason' => $request->alasam_izin,
         'status' => 'Menunggu Konfirmasi',
         'id_RejectedBy' => 0,
-        'rejection_reason' => null
+        'rejection_reason' => null,
+        'sick_license'=> $name
         ]);
 
         if ($request->jenis_izin==1) {
@@ -67,8 +73,12 @@ class PermissionController extends Controller
         return view ('permission.createPermission',compact(['edit','id_permissionTypes','id_rejectedBys']));
     }
     public function update_sick(Request $request, $id){
-        $permission = Permission_Form::find($id);
+        $file = $request->file('foto');
+        $name = $file->hashName();
+        $file->store('photos','public');
 
+        $permission = Permission_Form::find($id);
+        
         $permission->full_name = $request->nama_pegawai;
         $permission->employee_number = $request->nomor_induk_pegawai;
         $permission->started_date = $request->tanggal_mulai_izin;
@@ -77,7 +87,8 @@ class PermissionController extends Controller
         $permission->reason = $request->alasam_izin;
         $permission->status = 'Menunggu Konfirmasi';
         $permission->id_RejectedBy = 0;
-        dd($request);
+        $permission->sick_license = $name;
+        // dd($request);
         if($request->alasan_penolakan){
         $permission->rejection_reason = $request->alasan_penolakan;
         }else{
@@ -176,7 +187,9 @@ class PermissionController extends Controller
         Permission_Form::create([
             'full_name'=> $request->nama_pegawai,
             'id_PermissionType'=> $request->jenis_izin,
-            'status'=> $request->status_izin
+            'status'=> $request->status_izin,
+            'sick_license'=> $request->foto
+
         ]);
         return redirect('/accepted')->with('success','Permission Has Been Accepted !');
     }
@@ -238,5 +251,4 @@ class PermissionController extends Controller
         $permission->save();
         return redirect('/rejected')->with('success','Permission Has Been Rejected !');
     }
-    
 }

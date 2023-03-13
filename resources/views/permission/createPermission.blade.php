@@ -21,7 +21,7 @@
     <form action=<?php @$edit!=null? 
     
     printf( $url_permission):
-    printf('/create_permission') ?> method="post"> @csrf
+    printf('/create_permission') ?> method="post" enctype="multipart/form-data"> @csrf
 
     <div class="card-body">
         <div class="form-group">
@@ -101,6 +101,7 @@
                 data-select2-id="12"
                 tabindex="-1"
                 aria-hidden="true"
+                onchange="getComboA(this)"
             >
 
         @foreach ($id_permissionTypes as $id_permissionType)
@@ -126,10 +127,12 @@
             >
         </div>
         
+        <div class="form-group">
+            <label>Surat Keterangan Dokter</label>
+            <input id="filesss" type="file" name="foto">
+            <?php if(@$edit!=null) printf($edit->sick_license)?>
+        </div>
 
-        
-
-        
         <div class="row">
             <div class="card-footer" style="margin-left: 0pt">
                 <button type="submit" class="btn btn-dark">
@@ -141,5 +144,19 @@
             </div>
         </div>
         @endsection
+        @push('page_scripts')
+        <script>
+            function getComboA(selectObject) {
+            var value = selectObject.value;
+            const input_upload = document.getElementById('filesss');
+
+            console.log(value)
+            if(value == 2 || value == 3){
+                input_upload.remove();
+            }
+            }
+        </script>
+       
+        @endpush
     </div>
 </div>

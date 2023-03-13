@@ -23,6 +23,7 @@
                             <th>Permission Status / Status Izin</th>
                             <th>Rejected By / Ditolak Oleh</th>
                             <th>Rejection Reason / Alasan Penolakan</th>
+                            <th>Sick License / Surat Keterangan Dokter</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +42,7 @@
                         <td>{{@$permission->status}}</td>
                         <td>{{@$permission->rejecteds->name}}</td>
                         <td>{{@$permission->rejection_reason}}</td>
+                        <td><a target="_blank" href="{{asset('storage/photos')}}/{{@$permission->sick_license}}"><img src="{{asset('storage/photos')}}/{{@$permission->sick_license}}" alt="permission" srcset="" style="height: 50%; width: 50%"></a></td>
                     </tr>
                     @php
                         $no++;

@@ -23,6 +23,7 @@
                         <th>Full Name / Nama</th>
                         <th>Permission Status / Status Izin</th>
                         <th>Permission Type / Jenis Izin</th>
+                        <th>Sick License / Surat Keterangan Dokter</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                         <td>{{$permission->full_name}}</td>
                         <td>{{$permission->types->name}}</td>
                         <td>{{$permission->status}}</td>
+                        <td><a target="_blank" href="{{asset('storage/photos')}}/{{@$permission->sick_license}}"><img src="{{asset('storage/photos')}}/{{@$permission->sick_license}}" alt="permission" srcset="" style="height: 50%; width: 50%"></a></td>
                     </tr>
                     @php $no++; @endphp @endforeach
                 </tbody>
