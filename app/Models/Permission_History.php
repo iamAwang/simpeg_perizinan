@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission_History extends Model
 {
-    protected $fillable = ['id_PermissionForm','id_Employee']
+    protected $fillable = ['id_PermissionForm','id_Employee'];
     protected $table = 'permission_histories';
 
     public function form(){

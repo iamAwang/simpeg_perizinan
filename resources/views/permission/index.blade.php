@@ -45,11 +45,15 @@
                     <!-- <span class="info-box-text">Create Permission</span> -->
                     <div class="progress">
                         <?php
-                        $progress_sakit =  Auth::user()->employee->permissions->count()/12 * 100;
+                        if(@Auth::user()->employee->permissions == null){
+                            @$progress=0;
+                        }else{
+                            @$progress =  Auth::user()->employee->permissions->count()/12 * 100;
+                        }
                     ?>
-                        <div class="progress-bar" style="width: {{$progress_sakit}}%"></div>
+                        <div class="progress-bar" style="width: {{@$progress}}%"></div>
                     </div>
-                    <span class="progress-description"> {{Auth::user()->employee->permissions->count()}}/12 </span>
+                    <span class="progress-description">{{@$progress}}/12</span>
                 </div>
             </div>
         </div>
@@ -66,12 +70,16 @@
                 <a href="/sick_permission" style="color: white">Sick / Sakit</a>
                 <!-- <span class="info-box-text">Sick</span> -->
                 <div class="progress">
-                    <?php
-                        $progress_sakit =  Auth::user()->employee->permissions->where('id_PermissionType',1)->count()/4 * 100;
+                        <?php
+                        if(@Auth::user()->employee->permissions == null){
+                            @$progress_sakit=0;
+                        }else{
+                            @$progress_sakit =  Auth::user()->employee->permissions->count()/12 * 100;
+                        }
                     ?>
                     <div class="progress-bar" style="width: {{$progress_sakit}}%"></div>
                 </div>
-                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',1)->count()}}/4 </span>
+                <span class="progress-description">{{@$progress_sakit}}/4 </span>
             </div>
         </div>
     </div>
@@ -87,12 +95,16 @@
                 >
                 <!-- <span class="info-box-text">Permit</span> -->
                 <div class="progress">
-                    <?php
-                        $progress_izin =  Auth::user()->employee->permissions->where('id_PermissionType',2)->count()/4 * 100;
+                <?php
+                        if(@Auth::user()->employee->permissions == null){
+                            @$progress_izin=0;
+                        }else{
+                            @$progress_izin =  Auth::user()->employee->permissions->count()/12 * 100;
+                        }
                     ?>
                     <div class="progress-bar" style="width: {{$progress_izin}}%"></div>
                 </div>
-                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',2)->count()}}/4 </span>
+                <span class="progress-description">{{@$progress_izin}}/4 </span>
             </div>
         </div>
     </div>
@@ -108,12 +120,16 @@
                 >
                 <!-- <span class="info-box-text">Leave</span> -->
                 <div class="progress">
-                    <?php
-                        $progress_cuti =  Auth::user()->employee->permissions->where('id_PermissionType',3)->count()/4 * 100;
+                <?php
+                        if(@Auth::user()->employee->permissions == null){
+                            @$progress_cuti=0;
+                        }else{
+                            @$progress_cuti =  Auth::user()->employee->permissions->count()/12 * 100;
+                        }
                     ?>
                     <div class="progress-bar" style="width: {{$progress_cuti}}%"></div>
                 </div>
-                <span class="progress-description"> {{Auth::user()->employee->permissions->where('id_PermissionType',2)->count()}}/4 </span>
+                <span class="progress-description">{{@$progress_cuti}}/4 </span>
             </div>
         </div>
     </div>
