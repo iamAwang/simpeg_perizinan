@@ -141,6 +141,23 @@
 <?php @$accept? printf($acceptation_forms->reason): printf($rejection_forms->reason) ?></textarea
             >
         </div>
+        
+        <div class="form-group">
+            <label>Surat Keterangan Dokter</label>
+            <br>
+            <a target="_blank" href="{{asset('storage/photos')}}/{{@$acceptation_forms->sick_license}}">
+            <img 
+                type="image" 
+                src="{{asset('storage/photos')}}/{{@$acceptation_forms->sick_license}}" 
+                alt="permission" 
+                srcset="" 
+                style="height: 25%; width: 25%" 
+                name="foto"
+                value="<?php @$accept? printf($acceptation_forms->sick_license): printf($rejection_forms->sick_license) ?>"
+                disabled="disabled">
+            </a>
+        </div>
+        
         <div class="form-group" data-select2-id="29">
             <label>Permission Status / Status Izin</label>
             <select
