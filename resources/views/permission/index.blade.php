@@ -172,7 +172,7 @@
         <div class="card">
             <div class="card-header" style="background-color: #17a2b8">
                 <h3 class="card-title" style="color: white">
-                    Employee Permission / Izin Pegawai
+                    Employee Permission / Izin Pegawaii
                 </h3>
                 <div class="card-tools"></div>
             </div>
