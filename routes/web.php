@@ -28,6 +28,7 @@ Route::get('/developer/create',[DeveloperController::class,'create']);
 Route::post('/developer/store',[DeveloperController::class,'store']);
 
 Route::get('/permission',[PermissionController::class,'index'])->name('Permission');
+Route::get('/permission/history',[PermissionController::class,'indexHistory']);
 
 Route::get('/create_permission',[PermissionController::class,'create']);
 Route::post('/create_permission',[PermissionController::class,'store']);

@@ -10,6 +10,8 @@ use App\Models\Permission_Types;
 use App\Models\Rejected_Bys;
 use App\Models\Permission_History;
 
+use Auth;
+
 class PermissionController extends Controller
 {
     public function index()
@@ -22,20 +24,37 @@ class PermissionController extends Controller
         return view('permission.index',compact(['roles', 'history_permissions','accepteds','rejecteds']));
     }
 
+    public function indexHistory()
+    {
+        $accepteds = Permission_Form::where('status','Disetujui Atasan 1');
+        $rejecteds = Permission_Form::where('id_RejectedBy',0);
+        $history_permissions = Permission_Form::all()->where('status','Menunggu Konfirmasi')->where('id_RejectedBy', 0);
+        // dd($history_permissions);
+        $roles = Role::all();
+        return view('permission.indexHistory',compact(['roles', 'history_permissions','accepteds','rejecteds']));
+    }
+
     public function create()
     {
+        if(Auth::user()->employee->permissions->where('id_PermissionType',3)->count() > 4){
+            return "dah ga boleh oi";
+        }
         $id_permissionTypes = Permission_Types::all();
         $id_rejectedBys = Rejected_Bys::all();
-    return view ('permission.createPermission',compact(['id_permissionTypes','id_rejectedBys']));
+        return view ('permission.createPermission',compact(['id_permissionTypes','id_rejectedBys']));
     }
     public function store(Request $request)
     {
         // dd($request);
-        $file = $request->file('foto');
-        $name = $file->hashName();
+        $name = "";
+        if ($request->jenis_izin==1){
+            $file = $request->file('foto');
+            $name = $file->hashName();
+            
         $ext = $file->getClientOriginalExtension();
         // dd($name);
         $file->store('photos','public');
+        }
         Permission_Form::create([
         'full_name' => $request->nama_pegawai,
         'employee_number' => $request->nomor_induk_pegawai,
@@ -73,12 +92,18 @@ class PermissionController extends Controller
         return view ('permission.createPermission',compact(['edit','id_permissionTypes','id_rejectedBys']));
     }
     public function update_sick(Request $request, $id){
+        $notHaveFile = true;
+
         $file = $request->file('foto');
-        $name = $file->hashName();
-        $file->store('photos','public');
+        if($request->file('foto')!=null){
+            $notHaveFile = false;
+            
+            $name = $file->hashName();
+            $file->store('photos','public');
+        }
 
         $permission = Permission_Form::find($id);
-        
+
         $permission->full_name = $request->nama_pegawai;
         $permission->employee_number = $request->nomor_induk_pegawai;
         $permission->started_date = $request->tanggal_mulai_izin;
@@ -87,7 +112,9 @@ class PermissionController extends Controller
         $permission->reason = $request->alasam_izin;
         $permission->status = 'Menunggu Konfirmasi';
         $permission->id_RejectedBy = 0;
-        $permission->sick_license = $name;
+        if(!$notHaveFile){
+            $permission->sick_license = $name;
+        }
         // dd($request);
         if($request->alasan_penolakan){
         $permission->rejection_reason = $request->alasan_penolakan;

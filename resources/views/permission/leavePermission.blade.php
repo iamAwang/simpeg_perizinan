@@ -4,14 +4,14 @@ Session::get('success'))
     {{ $message }}
 </div>
 @endif
+
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header" style="background-color: #17a2b8">
+            <div class="card-header" style="background-color: #343a40">
                 <h3 class="card-title" style="color: white">
                     Leave Permission / Izin Cuti
                 </h3>
-                <div class="card-tools"></div>
             </div>
 
             <div class="card-body table-responsive p-0" style="height: 300px">
@@ -31,9 +31,9 @@ Session::get('success'))
                             <th>Action / Aksi</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @php $no=1; @endphp 
-                        @foreach ($leave_permissions as $permission)
+                        @php $no=1; @endphp @foreach ($leave_permissions as $permission)
                         <tr style="text-align: center">
                             <td>{{ $no }}</td>
                             <td>{{$permission->full_name}}</td>
@@ -50,11 +50,12 @@ Session::get('success'))
                                     <span
                                         class="btn btn-success col fileinput-button dz-clickable"
                                     >
-                                    <i class="fas fa-pencil-alt"></i>
                                         <a
                                             href="/edit_leave/{{$permission->id}}"
                                             style="color: white"
-                                            >Edit</a
+                                            data-toggle="tooltip"
+                                            ><i class="fas fa-pencil-alt"></i>
+                                            Edit</a
                                         >
                                     </span>
                                     <form
@@ -66,7 +67,10 @@ Session::get('success'))
                                             type="submit"
                                             class="btn btn-warning col cancel"
                                         >
-                                        <i class="fas fa-trash" style="color: white"></i>
+                                            <i
+                                                class="fas fa-trash"
+                                                style="color: white"
+                                            ></i>
                                             <span style="color: white"
                                                 >Cancel</span
                                             >
@@ -75,18 +79,23 @@ Session::get('success'))
                                 </div>
                             </td>
                         </tr>
-                        @php $no++; @endphp 
-                        @endforeach
-
+                        @php $no++; @endphp @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
-<div class="card-footer" style="margin-left: 0pt">
-    <button type="submit" class="btn btn-info">
-        <a href="/permission" style="color: white">Back</a>
-    </button>
+
+    <div class="col-12" style="text-align: center">
+        <button
+            type="submit"
+            class="btn btn-dark"
+            style="width: 100px; height: auto"
+        >
+            <a href="/permission/history" style="color: white; display: block"
+                >Back</a
+            >
+        </button>
+    </div>
 </div>
 @endsection

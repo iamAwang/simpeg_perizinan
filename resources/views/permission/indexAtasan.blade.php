@@ -141,41 +141,29 @@
 <?php @$accept? printf($acceptation_forms->reason): printf($rejection_forms->reason) ?></textarea
             >
         </div>
-        
+        @if(@$acceptation_forms->id_PermissionType == 1 || @$rejection_forms->id_PermissionType == 1)
         <div class="form-group">
             <label>Surat Keterangan Dokter</label>
             <br>
-            <a target="_blank" href="{{asset('storage/photos')}}/{{@$acceptation_forms->sick_license}}">
-            <img 
-                type="image" 
-                src="{{asset('storage/photos')}}/{{@$acceptation_forms->sick_license}}" 
-                alt="permission" 
-                srcset="" 
-                style="height: 25%; width: 25%" 
+            <a target="_blank" href="{{asset('storage/photos')}}/<?php @$acceptation_forms != null ? printf(@$acceptation_forms->sick_license) : printf(@$rejection_forms->sick_license) ?>">
+                <img 
                 name="foto"
+                src="{{asset('storage/photos')}}/<?php @$acceptation_forms != null ? printf(@$acceptation_forms->sick_license) : printf(@$rejection_forms->sick_license) ?>" 
+                alt="acceptation_forms" 
+                srcset="" 
+                style="height: 25%; width: 25%"
                 value="<?php @$accept? printf($acceptation_forms->sick_license): printf($rejection_forms->sick_license) ?>"
-                disabled="disabled">
+                >
             </a>
-        </div>
+        </div>  
+        @endif
+        
         
         <div class="form-group" data-select2-id="29">
             <label>Permission Status / Status Izin</label>
-            <select
-                name="status_izin"
-                class="form-control select2 select2-danger select2-hidden-accessible"
-                data-dropdown-css-class="select2-danger"
-                style="width: 100%"
-                data-select2-id="12"
-                tabindex="-1"
-                aria-hidden="true"
-                <?php @$reject? printf("disabled"): ""?>
-            >
-            @if(@$acceptation_forms->status)
-            <?php 
-            if(@$accept){
-                $status = @$acceptation_forms->status; }
-            else{ $status = @$rejection_forms->status; }
-            ?>
+            <select name="status_izin" class="form-control select2 select2-danger select2-hidden-accessible" data-dropdown-css-class="select2-danger" style="width: 100%" data-select2-id="12" tabindex="-1" aria-hidden="true" <?php @$reject? printf("disabled"): ""?>>
+                @if(@$acceptation_forms->status)<?php if(@$accept){$status = @$acceptation_forms->status;}else{$status = @$rejection_forms->status;}?>
+                
                 @if(@$acceptation_forms->status == "Menunggu Konfirmasi")
                 <option data-select2-id="37" value="Menunggu Konfirmasi" selected>Menunggu Konfirmasi</option>
                 <option data-select2-id="37" value="Disetujui Atasan 1">Disetujui Atasan 1</option>
@@ -210,7 +198,6 @@
                 <option data-select2-id="38" value="Disetujui Atasan 2">Disetujui Atasan 2</option>
                 <option data-select2-id="39" value="Disetujui Atasan 3">Disetujui Atasan 3</option>
                 @endif
-            {{-- @endif --}}
             </select>
             <span
                 class="select2 select2-container select2-container--default select2-container--above select2-container--focus"
@@ -271,16 +258,12 @@
             >
         </div>
 
-        <div class="row">
-            <div class="card-footer" style="margin-left: 0pt">
-                <button type="submit" class="btn btn-dark">
-                    <a href="/permission" style="color: white">Back</a>
-                </button>
-            </div>
-            <div class="card-footer" style="margin-right: 0pt">
-                <button type="submit" class="btn btn-dark">Submit</button>
-            </div>
+        <div class="form-group">
+            <span  class="btn btn-dark" style="float: left; width: 100px">
+                <a href="/permission" style="color: white">Back</a>
+            </span>
+            <button type="submit" data-toggle="tooltip" class="btn btn-dark" style="float: right; width: 100px">Submit</button>
         </div>
-        @endsection
     </div>
 </div>
+@endsection

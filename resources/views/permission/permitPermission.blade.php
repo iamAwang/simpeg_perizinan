@@ -1,24 +1,23 @@
-@extends('layouts.app') @section('content')
-@if ($message = Session::get('success'))
+@extends('layouts.app') @section('content') @if ($message =
+Session::get('success'))
 <div class="alert alert-success" role="alert">
     {{ $message }}
 </div>
 @endif
+
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header" style="background-color: #17a2b8">
+            <div class="card-header" style="background-color: #343a40">
                 <h3 class="card-title" style="color: white">
                     Permit Permission / Izin Pegawai
                 </h3>
-                <div class="card-tools">
-                </div>
+                <div class="card-tools"></div>
             </div>
 
             <div class="card-body table-responsive p-0" style="height: 300px">
                 <table class="table table-head-fixed text-nowrap">
                     <thead>
-                        
                         <tr style="text-align: center">
                             <th>ID</th>
                             <th>Full Name / Nama</th>
@@ -31,17 +30,13 @@
                             <th>Rejected By / Ditolak Oleh</th>
                             <th>Rejection Reason / Alasan Penolakan</th>
                             <th>Action / Aksi</th>
-                        </tr> 
-                        
-                        
+                        </tr>
                     </thead>
+
                     <tbody>
-                        @php
-                            $no=1;
-                        @endphp
-                        @foreach ($permit_permissions as $permission)
+                        @php $no=1; @endphp @foreach ($permit_permissions as $permission)
                         <tr style="text-align: center">
-                            <td>{{$no}}</td>
+                            <td>{{ $no }}</td>
                             <td>{{$permission->full_name}}</td>
                             <td>{{$permission->employee_number}}</td>
                             <td>{{$permission->started_date}}</td>
@@ -51,41 +46,55 @@
                             <td>{{@$permission->status}}</td>
                             <td>{{@$permission->rejecteds->name}}</td>
                             <td>{{@$permission->rejection_reason}}</td>
-                            <td><div class="btn-group">
-                                <span
-                                    class="btn btn-success col fileinput-button dz-clickable"
-                                >
-                                <i class="fas fa-pencil-alt"></i>
-                                    <a href="/edit_permit/{{$permission->id}}" style="color: white"
-                                        >Edit</a
+                            <td>
+                                <div class="btn-group">
+                                    <span
+                                        class="btn btn-success col fileinput-button dz-clickable"
                                     >
-                                </span>
-                                <form action="/cancel/permit/{{$permission->id}}" method="post">
-                                    @csrf
-                                    
-                                    <button
-                                    type="submit"
-                                    class="btn btn-warning col cancel"
-                                >
-                                <i class="fas fa-trash" style="color: white"></i>
-                                    <span style="color: white">Cancel</span>
-                                </button></form>
-                                
-                                </div></td>
+                                        <a
+                                            href="/edit_permit/{{$permission->id}}"
+                                            data-toggle="tooltip"
+                                            style="color: white"
+                                        >
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Edit
+                                        </a>
+                                    </span>
+                                    <form
+                                        action="/cancel/permit/{{$permission->id}}"
+                                        method="post"
+                                    >
+                                        @csrf
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-warning col cancel"
+                                        >
+                                            <i
+                                                class="fas fa-trash"
+                                                style="color: white"
+                                            ></i>
+                                            <span style="color: white"
+                                                >Cancel</span
+                                            >
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
-                        @php
-                            $no++;
-                        @endphp
-                        @endforeach
+                        @php $no++; @endphp @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
-<div class="card-footer" style="margin-left: 0pt">
-    <button type="submit" class="btn btn-info">
-        <a href="/permission" style="color: white">Back</a>
-    </button>
+
+    <div class="col-12" style="text-align: center">
+        <button type="submit" class="btn btn-dark" style="width: 100px">
+            <a href="/permission/history" style="color: white; display: block"
+                >Back</a
+            >
+        </button>
+    </div>
 </div>
 @endsection

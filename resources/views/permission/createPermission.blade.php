@@ -1,8 +1,11 @@
-@extends('layouts.app') @section('content')
+@extends('layouts.app') 
+@section('content')
+
 <div class="card">
     <div class="card-header" style="background-color: #343a40">
         <h3 class="card-title" style="color: white">Permission Form / Formulir Izin</h3>
     </div>
+
     <?php
         $url_permission = "";
         if(@$edit){
@@ -19,9 +22,9 @@
     ?>
 
     <form action=<?php @$edit!=null? 
-    
     printf( $url_permission):
-    printf('/create_permission') ?> method="post" enctype="multipart/form-data"> @csrf
+    printf('/create_permission') ?> method="post" enctype="multipart/form-data"> 
+    @csrf
 
     <div class="card-body">
         <div class="form-group">
@@ -37,8 +40,8 @@
                 @error('name')
                 <div class="invalid-feedback">
                     {{$message}}
-              </div>
-            @enderror
+                </div>
+                @enderror
             </div>
         </div>
 
@@ -65,6 +68,7 @@
                 <input
                     name="tanggal_mulai_izin"
                     type="date"
+                    onfocus="this.showPicker()"
                     class="form-control datetimepicker-input"
                     data-target="#reservationdate"
                     placeholder="Started Date"
@@ -83,6 +87,7 @@
                 <input
                     name="tanggal_selesai_izin"
                     type="date"
+                    onfocus="this.showPicker()"
                     class="form-control datetimepicker-input"
                     data-target="#reservationdate"
                     placeholder="Ended Date"
@@ -116,47 +121,35 @@
 
         <div class="form-group">
             <label>Reason / Alasan</label>
-            <textarea
-                name="alasam_izin"
-                class="form-control"
-                rows="3"
-                placeholder="Reason / Alasan ..."
-            >
-<?php if(@$edit!=null) printf($edit->reason)
-                ?></textarea
-            >
+            <textarea name="alasam_izin" class="form-control" rows="3" placeholder="Reason / Alasan ..."><?php if(@$edit!=null) printf($edit->reason)?></textarea>
         </div>
         
-        <div class="form-group">
+        <div class="form-group" id="filesss">
             <label>Surat Keterangan Dokter</label>
-            <input id="filesss" type="file" name="foto">
-            <?php if(@$edit!=null) printf($edit->sick_license)?>
+            <input type="file" name="foto"><?php if(@$edit!=null) printf($edit->sick_license)?>
         </div>
 
-        <div class="row">
-            <div class="card-footer" style="margin-left: 0pt">
-                <button type="submit" class="btn btn-dark">
-                    <a href="/permission" style="color: white">Back</a>
-                </button>
-            </div>
-            <div class="card-footer" style="margin-right: 0pt">
-                <button type="submit" class="btn btn-dark">Submit</button>
-            </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-dark" style="float: left; width: 100px">
+                <a href="/permission" data-toggle="tooltip" style="color: white">Back</a>
+            </button>
+            <button type="submit" data-toggle="tooltip" class="btn btn-dark" style="float: right; width: 100px">Submit</button>
         </div>
-        @endsection
-        @push('page_scripts')
-        <script>
-            function getComboA(selectObject) {
-            var value = selectObject.value;
-            const input_upload = document.getElementById('filesss');
-
-            console.log(value)
-            if(value == 2 || value == 3){
-                input_upload.remove();
-            }
-            }
-        </script>
-       
-        @endpush
     </div>
 </div>
+@endsection
+
+@push('page_scripts')
+    <script>
+        function getComboA(selectObject) {
+        var value = selectObject.value;
+        const input_upload = document.getElementById('filesss');
+
+        console.log(value)
+        if(value == 2 || value == 3){
+            input_upload.remove();
+        }
+        }
+    </script>
+       
+@endpush

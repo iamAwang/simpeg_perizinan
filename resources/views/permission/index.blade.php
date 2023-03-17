@@ -1,253 +1,206 @@
-@extends('layouts.app') @if(Auth::user()->role_id == 2) @section('pegawai')
+@extends('layouts.app') 
+@if(Auth::user()->role_id == 2) 
+@section('pegawai')
+
 @section('header')
-<h5>Your Permission / Izin Anda</h5>
-@endsection @section('content') @if ($message = Session::get('success'))
+<div class="row">
+<div class="container" style="position: relative">
+    <img src={{ asset("wallpaper/wallpaper4.jpg") }} alt="wallpaper4bg" style="max-width: 100%; height: auto; border-radius: 5px">
+    <div class="title">
+        <h5
+            style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -190%);
+                font-size: 25px;
+                color: white;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
+                    0 -1px black;
+            "
+        >Your Permission
+        </h5>
+        <a
+            href="/permission"
+            class="btn btn-app bg-dark"
+            data-toggle="tooltip"
+            style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-130%, -15%);
+                border: none;
+            "
+        >
+            <i class="fa fa-chart-simple"></i> Dashboard
+        </a>
+        <a
+            href="/permission/history"
+            class="btn btn-app bg-dark"
+            data-toggle="tooltip"
+            style="
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-0%, -15%);
+                border: none;
+            "
+        >
+            <i class="fa fa-book-bookmark"></i> History
+        </a>
+    </div>
+</div>
+</div>
+@endsection 
+
+@section('content') 
+
+@if ($message = Session::get('success'))
 <div class="alert alert-success" role="alert">
     {{ $message }}
 </div>
 @endif
-<div class="row">
-    <div
-        style="
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: minmax(100px, auto);
-            grid-gap: 15px;
-        "
-    >
-        <div style="grid-column: 3/7">
-            <div class="info-box bg-dark">
-                <span class="info-box-icon">
-                    <i class="fa fa-folder-plus"></i>
-                </span>
-                <div class="info-box-content">
-                    <a href="/create_permission" style="color: white"
-                        >Create Permission / Buat Izin</a
-                    >
-                    <!-- <span class="info-box-text">Create Permission</span> -->
-                    {{-- <div class="progress">
-                        <div class="progress-bar" style="width: 50%"></div>
-                    </div>
-                    <span class="progress-description"> 6/12 </span> --}}
-                </div>
-            </div>
-        </div>
 
-        <div style="grid-column: 7/11">
-            <div class="info-box bg-dark">
-                <span class="info-box-icon">
-                    <i class="fa fa-clock-rotate-left"></i>
-                </span>
-                <div class="info-box-content">
-                    <a href="/permission_history" style="color: white"
-                        >History / Riwayat Izin</a
-                    >
-                    <!-- <span class="info-box-text">Create Permission</span> -->
-                    <div class="progress">
-                        <?php
-                        if(@Auth::user()->employee->permissions == null){
-                            @$progress=0;
-                        }else{
-                            @$progress =  Auth::user()->employee->permissions->count()/12 * 100;
-                        }
-                    ?>
-                        <div class="progress-bar" style="width: {{@$progress}}%"></div>
-                    </div>
-                    <span class="progress-description">{{@$progress}}/12</span>
-                </div>
-            </div>
+<div class="row" style="margin: 1px;">
+<a href="/create_permission" class="card card-widget widget-user">
+    <div class="item1" style="width: 995px">
+        <div class="widget-user-header bg-dark">
+            <h3 class="widget-user-username">CREATE</h3>
+            <h5 class="widget-user-desc">PERMISSION</h5>
+        </div>
+        <div class="widget-user-image">
+            <img
+                class="img-circle elevation-2"
+                src="{{ asset("wallpaper/wallpaper5.jpg") }}"
+                alt=""
+                style="width: 100px; height: 100px; display:inline-block; vertical-align:middle;"
+            />
+        </div>
+        <div class="card-footer">
         </div>
     </div>
 </div>
+</a>
+@endsection 
+@endif 
 
-<div class="row">
-    <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-info">
-            <span class="info-box-icon">
-                <i class="fa fa-hospital-user"></i>
-            </span>
-            <div class="info-box-content">
-                <a href="/sick_permission" style="color: white">Sick / Sakit</a>
-                <!-- <span class="info-box-text">Sick</span> -->
-                <div class="progress">
-                        <?php
-                        if(@Auth::user()->employee->permissions == null){
-                            @$progress_sakit=0;
-                        }else{
-                            @$progress_sakit =  Auth::user()->employee->permissions->count()/12 * 100;
-                        }
-                    ?>
-                    <div class="progress-bar" style="width: {{$progress_sakit}}%"></div>
-                </div>
-                <span class="progress-description">{{@$progress_sakit}}/4 </span>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-info">
-            <span class="info-box-icon">
-                <i class="fa fa-file-signature"></i>
-            </span>
-            <div class="info-box-content">
-                <a href="/permit_permission" style="color: white"
-                    >Permit / Izin</a
-                >
-                <!-- <span class="info-box-text">Permit</span> -->
-                <div class="progress">
-                <?php
-                        if(@Auth::user()->employee->permissions == null){
-                            @$progress_izin=0;
-                        }else{
-                            @$progress_izin =  Auth::user()->employee->permissions->count()/12 * 100;
-                        }
-                    ?>
-                    <div class="progress-bar" style="width: {{$progress_izin}}%"></div>
-                </div>
-                <span class="progress-description">{{@$progress_izin}}/4 </span>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-sm-6 col-12">
-        <div class="info-box bg-info">
-            <span class="info-box-icon">
-                <i class="fa fa-house-user" style="color: white"></i>
-            </span>
-            <div class="info-box-content">
-                <a href="/leave_permission" style="color: white"
-                    >Leave / Cuti</a
-                >
-                <!-- <span class="info-box-text">Leave</span> -->
-                <div class="progress">
-                <?php
-                        if(@Auth::user()->employee->permissions == null){
-                            @$progress_cuti=0;
-                        }else{
-                            @$progress_cuti =  Auth::user()->employee->permissions->count()/12 * 100;
-                        }
-                    ?>
-                    <div class="progress-bar" style="width: {{$progress_cuti}}%"></div>
-                </div>
-                <span class="progress-description">{{@$progress_cuti}}/4 </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection @endif @if(Auth::user()->role_id == 3) @section('atasan')
+@if(Auth::user()->role_id == 3) 
+@section('atasan')
 @section('header')
-<h5>Your Aceptation & Rejection / Persetujuan & Penolakan Anda</h5>
-@endsection
-<div
-    style="
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-auto-rows: minmax(100px, auto);
-        grid-gap: 15px;
-    "
->
-    <div style="grid-column: 3/7">
-        <div class="info-box" style="background-color: #1a4314">
-            <span class="info-box-icon" style="color: white">
-                <i class="fa fa-circle-check"></i>
-            </span>
-            <div class="info-box-content">
-                <a href="/accepted" style="color: white">Accepted / Diterima</a>
-            </div>
+<div class="row">
+    <div class="container" style="position: relative">
+        <img src={{ asset("wallpaper/cnv.png") }} alt="wallpaper4bg" style="max-width: 100%; height: auto; border-radius: 5px">
+        <div class="title">
+            <h5
+                style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -190%);
+                    font-size: 25px;
+                    color: white;
+                    text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
+                        0 -1px black;
+                "
+            >Your Aceptation & Rejection
+            </h5>
+            <a
+                href="/permission"
+                class="btn btn-app bg-dark"
+                data-toggle="tooltip"
+                style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-130%, -15%);
+                    border: none;
+                "
+            >
+                <i class="fa fa-chart-simple"></i> Dashboard
+            </a>
+            <a
+                href="/permission/history"
+                class="btn btn-app bg-dark"
+                data-toggle="tooltip"
+                style="
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-0%, -15%);
+                    border: none;
+                "
+            >
+                <i class="fa fa-book-bookmark"></i> History
+            </a>
         </div>
+    </div>
+</div>
+@endsection
+
+<div class="card">
+    <div class="card-header" style="background-color: #343a40">
+        <h3 class="card-title" style="color: white">Employee Permission / Izin Pegawaii</h3>
     </div>
 
-    <div style="grid-column: 7/11">
-        <div class="info-box" style="background-color: #800000">
-            <span class="info-box-icon" style="color: white">
-                <i class="fas fa-times-circle" style="color: white"></i>
-            </span>
-            <div class="info-box-content">
-                <a href="/rejected" style="color: white">Rejected / Ditolak</a>
-            </div>
-        </div>
+    <div class="card-body table-responsive p-0" style="height: 300px">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+                <tr style="text-align: center">
+                    <th>ID</th>
+                    <th>Full Name / Nama</th>
+                    <th>Permission Type / Jenis Izin</th>
+                    <th>Permission Status / Status Izin</th>
+                    <th>Action / Aksi</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                @php 
+                    $no=1; 
+                @endphp 
+                @foreach ($history_permissions as $permission)
+                <tr style="text-align: center">
+                    <td>{{ $no }}</td>
+                    <td>{{$permission->full_name}}</td>
+                    <td>{{$permission->types->name}}</td>
+                    <td>{{$permission->status}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <span
+                                class="btn btn-success col fileinput-button dz-clickable"
+                                style="
+                                    height: 50%;
+                                    background-color: #1a4314;"
+                                    >
+                                    <a href="/edit_permission_acceptation/{{$permission->id}}" data-toggle="tooltip" style="text-decoration: none;color: white;"><i class="fa fa-circle-check"></i> Accept
+                                    </a>
+                            </span>
+                            <form
+                                action="/edit_permission_rejection/{{$permission->id}}"
+                                method="get">
+                                @csrf
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger col cancel"
+                                    style="background-color: #800000;">
+                                    <i
+                                        class="fas fa-times-circle"
+                                        style="color: white">
+                                    </i>
+                                    <span style="color: white">Reject
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @php 
+                    $no++; 
+                @endphp 
+                @endforeach
+            </tbody>
+        </table>
     </div>
-    <div style="grid-column: 1/13">
-        <div class="card">
-            <div class="card-header" style="background-color: #17a2b8">
-                <h3 class="card-title" style="color: white">
-                    Employee Permission / Izin Pegawaii
-                </h3>
-                <div class="card-tools"></div>
-            </div>
-            <div class="row">
-                <div
-                    class="card-body table-responsive p-0"
-                    style="height: 300px"
-                >
-                    <table class="table table-head-fixed text-nowrap">
-                        <thead>
-                            <tr style="text-align: center">
-                                <th>ID</th>
-                                <th>Full Name / Nama</th>
-                                <th>Permission Type / Jenis Izin</th>
-                                <th>Permission Status / Status Izin</th>
-                                <th>Action / Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $no=1; @endphp @foreach ($history_permissions
-                            as $permission)
-                            <tr style="text-align: center">
-                                <td>{{ $no }}</td>
-                                <td>{{$permission->full_name}}</td>
-                                <td>{{$permission->types->name}}</td>
-                                <td>{{$permission->status}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <span
-                                            class="btn btn-success col fileinput-button dz-clickable"
-                                            style="
-                                                height: 50%;
-                                                background-color: #1a4314;
-                                            "
-                                        >
-                                            <i class="fa fa-circle-check"></i>
-                                            <a
-                                                href="/edit_permission_acceptation/{{$permission->id}}"
-                                                style="
-                                                    text-decoration: none;
-                                                    color: white;
-                                                "
-                                                >Accept</a
-                                            >
-                                        </span>
-                                        <form
-                                            action="/edit_permission_rejection/{{$permission->id}}"
-                                            method="get"
-                                        >
-                                            @csrf
-                                            <button
-                                                type="submit"
-                                                class="btn btn-danger col cancel"
-                                                style="
-                                                    background-color: #800000;
-                                                "
-                                            >
-                                                <i
-                                                    class="fas fa-times-circle"
-                                                    style="color: white"
-                                                ></i>
-                                                <span style="color: white"
-                                                    >Reject</span
-                                                >
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            @php $no++; @endphp @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                @endsection @endif
-            </div>
-        </div>
-    </div>
+@endsection 
+@endif
 </div>
